@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Brass Table AI icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b3942"/>
+      <stop offset="1" stop-color="#081419"/>
+    </linearGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f1cf88"/>
+      <stop offset="0.5" stop-color="#c99b50"/>
+      <stop offset="1" stop-color="#765128"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+  <circle cx="256" cy="246" r="176" fill="none" stroke="url(#brass)" stroke-width="16"/>
+  <circle cx="256" cy="246" r="151" fill="#10262e" stroke="#654825" stroke-width="2"/>
+
+  <!-- industrial skyline -->
+  <g fill="#8c6838" opacity=".72">
+    <path d="M133 319h246v66H133z"/>
+    <path d="M151 268h46v51h-46zM311 280h43v39h-43z"/>
+    <path d="M155 268l19-37 19 37zM315 280l17-30 17 30z"/>
+    <rect x="219" y="225" width="30" height="94" rx="3"/>
+    <rect x="262" y="247" width="25" height="72" rx="3"/>
+  </g>
+  <g fill="#0c1d23" opacity=".95">
+    <rect x="155" y="340" width="29" height="45" rx="4"/>
+    <rect x="207" y="340" width="29" height="45" rx="4"/>
+    <rect x="259" y="340" width="29" height="45" rx="4"/>
+    <rect x="311" y="340" width="29" height="45" rx="4"/>
+  </g>
+
+  <!-- monogram -->
+  <text x="256" y="300" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="214" font-weight="700" fill="#f4e6c8">B</text>
+  <text x="256" y="300" text-anchor="middle" font-family="Georgia,Times New Roman,serif" font-size="214" font-weight="700" fill="none" stroke="#c6964a" stroke-width="3">B</text>
+
+  <!-- rails -->
+  <path d="M124 377c72-53 192-72 264-17" fill="none" stroke="#6e4e28" stroke-width="13" stroke-linecap="round"/>
+  <path d="M128 397c74-48 184-63 256-14" fill="none" stroke="#d2aa62" stroke-width="8" stroke-linecap="round"/>
+  <g stroke="#d2aa62" stroke-width="5" stroke-linecap="round">
+    <path d="M153 369l9 25M190 354l8 26M230 344l5 25M272 341l-1 24M313 346l-5 24M351 358l-8 23"/>
+  </g>
+
+  <!-- small AI spark -->
+  <circle cx="390" cy="124" r="25" fill="#d3a652"/>
+  <path d="M390 108v32M374 124h32" stroke="#10262e" stroke-width="7" stroke-linecap="round"/>
+</svg>
