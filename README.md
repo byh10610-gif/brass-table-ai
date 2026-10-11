@@ -1,37 +1,62 @@
-# Brass Birmingham · Table AI v1.0.33 PWA 배포판
+# Brass: Birmingham · Table AI v1.0.36
 
-이 패키지는 게임 로직과 저장을 사용자 기기에서 처리합니다. 별도 게임 서버나 OpenAI/API 호출이 없으며, 게임 데이터는 기존과 동일하게 브라우저 `localStorage`에 저장됩니다.
+A browser companion for a **physical Brass: Birmingham game**. Use the real board, cards, tiles and resources while the app tracks turns, suggests AI actions and records the game. Supports 2–4 players and Korean/English.
 
-## 가장 쉬운 무료 배포: GitHub Pages
-1. GitHub에서 새 저장소(repository)를 만듭니다. 예: `brass-table-ai`.
-2. 이 ZIP의 압축을 풀고 **안의 파일 전체**를 저장소 최상위(root)에 업로드합니다.
-3. GitHub 저장소에서 `Settings` → `Pages`로 이동합니다.
-4. `Build and deployment`에서 `Deploy from a branch`를 선택합니다.
-5. Branch는 `main`, 폴더는 `/(root)`를 선택하고 저장합니다.
-6. 잠시 후 GitHub가 제공하는 `https://사용자명.github.io/brass-table-ai/` 주소로 접속합니다.
+All game logic runs on your device. No backend, account, paid AI API or network calls are needed for gameplay. Games and completed records are stored in browser `localStorage`. Export a JSON backup before clearing browser data or moving to another device.
 
-## iPhone / iPad 홈 화면 설치
-Safari에서 배포 주소를 연 뒤 `공유` → `홈 화면에 추가`를 선택합니다. 설치 후에는 일반 앱처럼 독립 창으로 실행됩니다. 첫 접속 이후 핵심 파일은 캐시되어 오프라인에서도 실행됩니다.
+## Run locally
 
-## Android / PC 설치
-Chrome/Edge에서 배포 주소를 열면 주소창 또는 메뉴의 `앱 설치` / `홈 화면에 추가`를 사용할 수 있습니다.
+From the repository root:
 
-## 버전 업데이트 방법
-새 버전을 배포할 때 다음 3곳의 버전을 같은 값으로 올리는 것을 권장합니다.
-- `index.html`의 `PWA_APP_VERSION`
-- `version.json`의 `version`
-- `service-worker.js`의 `APP_VERSION`
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
+```
 
-그 뒤 변경된 파일을 GitHub 저장소에 덮어쓰면 됩니다. 사용자의 게임 진행 데이터는 `localStorage`에 있으므로 앱 파일 업데이트로 삭제되지 않습니다. 앱은 온라인 상태에서 `version.json`을 확인하고 새 버전이 있으면 화면 오른쪽 아래에 업데이트 버튼을 표시합니다.
+Use a local browser for testing. Service workers require localhost or HTTPS; they cannot run from `file://`. The game and language packs remain self-contained in `index.html`. Direct `file://` opening was blocked by the cloud browser policy, so direct-file gameplay was not validated here; use the local server for verified testing.
 
-## 백업 권장
-대규모 업데이트 전에는 앱의 기존 `백업` 기능으로 JSON 파일을 받아두면 가장 안전합니다.
+## Languages
 
-## 비용 구조
-- 게임 서버: 없음
-- 별도 백엔드: 없음
-- OpenAI/API 호출: 없음
-- GitHub Pages: 공개 저장소 기준 무료 정적 호스팅 가능
+Choose Korean or English on the home screen. The first launch follows the browser language, falling back to English. The selection persists independently of the game. Switching languages preserves saves, history, player names and card/industry identifiers.
 
-## 로컬 테스트
-PWA(Service Worker)는 `file://`에서 동작하지 않습니다. PC에서 테스트하려면 이 폴더에서 간단한 로컬 웹 서버를 실행한 뒤 `http://localhost`로 접속하세요. 단일 `index.html` 자체는 기존처럼 직접 열어도 게임 로직을 사용할 수 있지만, 설치/자동 업데이트 기능은 HTTPS 또는 localhost에서만 활성화됩니다.
+v1.0.36 translates setup, actions, AI instructions, resources, scoring, completed-game logs, help, release notes, alerts and update controls. User-entered names are preserved in their original language.
+
+See [localization guidance](docs/LOCALIZATION.md) for adding another reviewed language pack.
+
+## GitHub Pages / PWA
+
+Deploy the application files at the root of a GitHub Pages branch: `index.html`, `service-worker.js`, `manifest.json`, `version.json`, `icon.svg`, `icons/`, and `.nojekyll`. All paths are relative and support a repository subdirectory. No build step is required.
+
+Set Pages to deploy the selected branch's root folder. On iOS, use Safari → Share → Add to Home Screen. Chrome/Edge support Install App. After the first successful load, the app can run offline.
+
+When releasing an update, keep the application `APP_VERSION`, `service-worker.js` version, `version.json` and initial update-button label in agreement. `PWA_APP_VERSION` reads the app's version directly. Export a backup, apply the update, and confirm the displayed version; a service worker may otherwise serve an earlier release. Publishing updates does not delete the existing game-save keys.
+
+## Checks
+
+The catalog/syntax/version checks require Node.js:
+
+```sh
+node --test tests/localization.test.cjs
+```
+
+Browser checks require Playwright and a Chromium executable. Install Playwright into an external tools directory to keep the app dependency-free, then run against your local server:
+
+```sh
+npm install --prefix /tmp/brass-test-tools playwright --no-audit --no-fund
+NODE_PATH=/tmp/brass-test-tools/node_modules node tests/i18n.spec.cjs
+```
+
+Set `CHROMIUM_PATH` if Chromium is not at `/usr/bin/chromium`; set `BRASS_TEST_URL` if using another server address. These checks use temporary browser contexts and do not alter your personal saves. Chromium's sandbox is disabled in the test launcher for compatibility with isolated cloud containers.
+
+For compatibility checks, serve an unchanged v1.0.33 package separately, then run:
+
+```sh
+BRASS_TEST_URL=http://127.0.0.1:8010/brass-table-ai/ \
+BRASS_LEGACY_URL=http://127.0.0.1:8010/onboarding/legacy-v33/ \
+NODE_PATH=/tmp/brass-test-tools/node_modules node tests/compatibility.spec.cjs
+```
+
+The compatibility runner creates a real legacy save, restores it in the new app, checks AI instruction branches, phone/tablet layouts and offline subdirectory operation. `BRASS_SCREENSHOT_PATH` optionally saves a tablet screenshot.
+
+## 한국어
+
+실물 보드와 함께 사용하는 브라스 버밍엄 AI 보조 앱입니다. 메인 화면에서 한국어/영어를 선택할 수 있고, 언어를 바꿔도 게임·행동 기록·사용자 이름은 유지됩니다. 게임 서버나 API 키는 필요 없습니다. 게임과 완료 기록은 현재 기기의 브라우저에 저장되므로 기기 이동·브라우저 데이터 삭제·앱 업데이트 전에는 JSON 백업을 권장합니다.

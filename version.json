@@ -1,9 +1,9 @@
 {
-  "version": "1.0.33",
-  "released": "2026-10-05",
+  "version": "1.0.36",
+  "released": "2026-10-11",
   "notes": [
-    "PWA 설치 및 오프라인 실행 지원",
-    "새 버전 확인 및 안전한 업데이트 기능 추가",
-    "산업혁명 테마의 독자적인 앱 아이콘 적용"
+    "Complete English UI, help, scoring and alerts",
+    "Preserve saved games and player names when switching languages",
+    "Synchronize app and PWA versions"
   ]
 }
