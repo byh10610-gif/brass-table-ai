@@ -5,15 +5,17 @@ from pathlib import Path
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("output", type=Path, help="Where to write the standalone HTML")
+parser.add_argument("--feature", choices=["map", "rule-master"], default="map")
 args = parser.parse_args()
 source = (Path(__file__).resolve().parents[1] / "index.html").read_text()
 source = source.replace('<html lang="ko">', '<html lang="ko" data-review-preview>', 1)
 header = 'function header(){return `<header'
 assert source.count(header) == 1, "Header has changed; check the review banner insertion."
+banner, label = ("룰마스터 검토용 · GitHub 반영 전", "룰마스터 살펴보기") if args.feature == "rule-master" else ("지도 기능 검토용 · GitHub 반영 전", "지도 기능 살펴보기")
 source = source.replace(
     header,
-    'function header(){return `<div class="review-banner"><span>지도 기능 검토용 · GitHub 반영 전</span> '
-    '<button type="button" data-act="map">지도 기능 살펴보기</button></div><header',
+    f'function header(){{return `<div class="review-banner"><span>{banner}</span> '
+    f'<button type="button" data-act="{args.feature}">{label}</button></div><header',
     1,
 )
 pwa = "(() => {\n  const PWA_APP_VERSION = APP_VERSION;"

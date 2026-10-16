@@ -7,7 +7,7 @@ const base=process.env.BRASS_TEST_URL||'http://127.0.0.1:8000/';
  try{
   const context=await browser.newContext({locale:'ko-KR',viewport:{width:1440,height:1050}}),page=await context.newPage(),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  await page.goto(base);await page.waitForFunction(()=>navigator.serviceWorker.controller);await page.waitForTimeout(300);
+  await page.goto(base);await page.waitForFunction(()=>navigator.serviceWorker.controller);await page.waitForTimeout(300);await page.locator('.home-actions').waitFor();
   // Geometry must cover every logical space and route without changing saved state.
   const geometry=await page.evaluate(()=>({
    slots:Object.entries(CITY_SLOTS).map(([city,slots])=>({city,logical:slots.length,points:BOARD_SLOTS[city]})),

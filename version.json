@@ -1,9 +1,9 @@
 {
-  "version": "1.0.37",
+  "version": "1.0.38",
   "released": "2026-10-16",
   "notes": [
-    "Live map of industry tiles, canal links and rail links in player colors",
-    "Inspect tile levels, resources and flipped state; zoom and explore example boards",
-    "Map follows actions, undo and era changes without changing save formats"
+    "Korean and English Rule Master with original Before/After tabletop illustrations",
+    "Dark flipped tiles with victory points, income spaces and link icons",
+    "Next-step guidance only inside Rule Master; external publisher rules link"
   ]
 }
