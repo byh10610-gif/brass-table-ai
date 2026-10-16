@@ -1,9 +1,9 @@
 {
-  "version": "1.0.36",
-  "released": "2026-10-11",
+  "version": "1.0.37",
+  "released": "2026-10-16",
   "notes": [
-    "Complete English UI, help, scoring and alerts",
-    "Preserve saved games and player names when switching languages",
-    "Synchronize app and PWA versions"
+    "Live map of industry tiles, canal links and rail links in player colors",
+    "Inspect tile levels, resources and flipped state; zoom and explore example boards",
+    "Map follows actions, undo and era changes without changing save formats"
   ]
 }

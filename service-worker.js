@@ -1,4 +1,4 @@
-const APP_VERSION = '1.0.36';
+const APP_VERSION = '1.0.37';
 const CACHE_NAME = `brass-table-ai-${APP_VERSION}`;
 const CORE = [
   './',
